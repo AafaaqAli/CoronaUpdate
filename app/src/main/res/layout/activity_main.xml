@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8E24AA"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayoutWeatherMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp">
+
+
+        <ImageView
+            android:id="@+id/imageViewWeatherMainLayout"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/full_sun"/>
+
+        <TextView
+            android:id="@+id/textViewTemperatureMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/imageViewWeatherMainLayout"
+            android:text="70\u2103"
+            android:textColor="#FFFFFF"
+            android:textSize="70dp" />
+
+
+        <TextView
+            android:id="@+id/textViewWeatherNameMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTemperatureMain"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-16dp"
+            android:layout_toRightOf="@+id/imageViewWeatherMainLayout"
+            android:text="Sunny"
+            android:textColor="#FFFFFF"
+            android:textSize="35dp" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSort_Search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RelativeLayoutWeatherMain"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutMenuMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/imageViewSearchByCountry"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/imageViewSortCoronaPatients"
+                android:clickable="true"
+                android:src="@drawable/ic_search" />
+
+            <ImageView
+                android:id="@+id/imageViewSortCoronaPatients"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:src="@drawable/ic_sort" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCoronaPatients"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/textViewSevenDaysTitle"
+        android:layout_below="@+id/linearLayoutSort_Search"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textViewSevenDaysTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollViewWeather"
+        android:layout_margin="10dp"
+        android:text="Last 5 Days"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+
+    <HorizontalScrollView
+        android:id="@+id/scrollViewWeather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="20dp"
+        android:background="#8E24AA">
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#8E24AA">
+
+            <include layout="@layout/card_weather" />
+
+            <include layout="@layout/card_weather" />
+
+            <include layout="@layout/card_weather" />
+
+            <include layout="@layout/card_weather" />
+
+            <include layout="@layout/card_weather" />
+
+
+        </GridLayout>
+
+
+    </HorizontalScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8E24AA">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="5dp"
+        android:elevation="10dp"
+        app:cardBackgroundColor="#DDFDC43E"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutWeather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewCardWeather"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/cloud_heavy_wind" />
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayoutTextViewWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toEndOf="@+id/imageViewCardWeather"
+                    android:layout_toRightOf="@+id/imageViewCardWeather">
+
+                    <TextView
+                        android:id="@+id/textViewCardTemperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="70\u2103"
+                        android:textColor="#FAFAFA"
+                        android:textSize="50dp" />
+
+                    <TextView
+                        android:id="@+id/textViewCardWeather"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewCardTemperature"
+                        android:layout_marginLeft="10dp"
+                        android:text=" Cloudy "
+                        android:textColor="#FFFFFF"
+                        android:textSize="20dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutTextViewCurrentLocationCases"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeLayoutWeather"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/textViewWorldWideTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Location:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/textViewWorldWideTitle"
+                    android:text="300"
+                    android:textColor="#FFFFFF" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeLayoutTextViewCurrentLocationCases"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:id="@+id/textViewCurrentLocationCasesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="World Wide:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/textViewCurrentLocationCasesTitle"
+                    android:text="30"
+                    android:textColor="#FFFFFF" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
