@@ -43,6 +43,13 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.google.android.gms:play-services:12.0.1'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.amitshekhar.android:android-networking:1.0.0'
+    implementation 'com.amitshekhar.android:jackson-android-networking:1.0.2'
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+
+
+
+
 
 
 

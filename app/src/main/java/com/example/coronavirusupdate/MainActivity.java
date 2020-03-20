@@ -1,9 +1,5 @@
 package com.example.coronavirusupdate;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.job.JobInfo;
@@ -11,7 +7,8 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -19,11 +16,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.snackbar.Snackbar;
 
 
 public class MainActivity extends AppCompatActivity {
     private static final int JOB_ID = 12;
+    private static final int LOCATION_ID = 13;
+
+
+    RequestPermissionsTask permissionsTask;
     ImageView imageViewSearch, imageViewSort;
     Boolean isSortedInList = true;
     RelativeLayout rootLayout;
@@ -40,13 +46,20 @@ public class MainActivity extends AppCompatActivity {
         imageViewSort = findViewById(R.id.imageViewSortCoronaPatients);
         rootLayout = findViewById(R.id.rootLayoutMain);
 
+        permissionsTask = new RequestPermissionsTask();
+
+
         //classes initialization here
         helperClass = new HelperClass();
 
         //My Custom Functions
         sortPatients();
         searchPatientsByCountry();
-        startUpdate();
+
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionsTask.execute();
+        }
     }
 
     private void sortPatients() {
@@ -81,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage("No Network Available, Want me to open Network setting?")
                 .setCancelable(false)
                 .setPositiveButton("Setting", (dialog, id) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
-                .setNegativeButton("Quit", (dialog, id) -> dialog.dismiss());
+                .setNegativeButton("Dismiss", (dialog, id) -> dialog.dismiss());
         AlertDialog alert = builder.create();
         alert.show();
 
@@ -98,16 +111,19 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(action));
                             d.dismiss();
                         })
-                .setNegativeButton("Cancel",
-                        (d, id) -> d.cancel());
+                .setNegativeButton("Dismiss", (d, id) -> d.cancel());
         builder.create().show();
     }
 
     private void validateAndGPSAndNetworkSetting() {
         if (helperClass.isNetworkAvailable(MainActivity.this) && helperClass.isGPSActive(MainActivity.this)) {
             showSnack("GPS & Network Available...", -1);
+            if (helperClass.isGPSActive(MainActivity.this)) {
+                startUpdate();
+            }
         } else if (!helperClass.isNetworkAvailable(MainActivity.this) && helperClass.isGPSActive(MainActivity.this)) {
             showNetworkDialog();
+
         } else if (helperClass.isNetworkAvailable(MainActivity.this) && !helperClass.isGPSActive(MainActivity.this)) {
             showGPSDialog();
         } else {
@@ -128,14 +144,35 @@ public class MainActivity extends AppCompatActivity {
 
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         int resultCode = scheduler.schedule(jobInfo);
-        if(resultCode == JobScheduler.RESULT_SUCCESS){
+        if (resultCode == JobScheduler.RESULT_SUCCESS) {
             Log.d("ServiceTestRun", "Job Scheduled Successfully Ali...");
 
         }
     }
 
-    private void requestPermission(){
+    private void requestLocationPermissions() {
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_ID);
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATION_ID: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    showSnack("Weather update cannot work without location permission...!", 1);
+                }
+                return;
+            }
+        }
     }
 
     @Override
@@ -143,5 +180,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         validateAndGPSAndNetworkSetting();
     }
+
+    private class RequestPermissionsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            requestLocationPermissions();
+            return null;
+        }
+    }
+
 
 }

@@ -8,9 +8,8 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
 
-import java.util.Objects;
-
 public class HelperClass {
+
 
     public boolean isNetworkAvailable(Context context) {
         if (context == null) return false;
@@ -44,7 +43,7 @@ public class HelperClass {
         Log.i("update_statut", "Network is available : FALSE ");
         return false;
 
-}
+    }
 
     public boolean isGPSActive(Context context) {
         final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
