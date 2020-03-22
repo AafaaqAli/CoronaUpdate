@@ -72,19 +72,20 @@
                 android:layout_marginTop="5dp">
 
                 <TextView
-                    android:id="@+id/textViewWorldWideTitle"
+                    android:id="@+id/textViewHumidityTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current Location:"
+                    android:text="Humidity"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewHumidity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/textViewWorldWideTitle"
+                    android:layout_toRightOf="@+id/textViewHumidityTitle"
                     android:text="300"
                     android:textColor="#FFFFFF" />
 
@@ -97,19 +98,20 @@
                 android:layout_marginLeft="20dp">
 
                 <TextView
-                    android:id="@+id/textViewCurrentLocationCasesTitle"
+                    android:id="@+id/textViewWindSpeedTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="World Wide:"
+                    android:text="Wind Speed:"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewWindSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/textViewCurrentLocationCasesTitle"
+                    android:layout_toRightOf="@+id/textViewWindSpeedTitle"
                     android:text="30"
                     android:textColor="#FFFFFF" />
 

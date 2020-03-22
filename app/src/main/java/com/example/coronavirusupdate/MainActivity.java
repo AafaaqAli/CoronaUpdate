@@ -94,7 +94,10 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage("No Network Available, Want me to open Network setting?")
                 .setCancelable(false)
                 .setPositiveButton("Setting", (dialog, id) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
-                .setNegativeButton("Dismiss", (dialog, id) -> dialog.dismiss());
+                .setNegativeButton("Dismiss", (dialog, id) -> dialog.dismiss())
+                .setCancelable(false);
+
+
         AlertDialog alert = builder.create();
         alert.show();
 
@@ -111,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(action));
                             d.dismiss();
                         })
-                .setNegativeButton("Dismiss", (d, id) -> d.cancel());
+                .setNegativeButton("Dismiss", (d, id) -> d.cancel())
+                .setCancelable(false);
         builder.create().show();
     }
 
@@ -145,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         int resultCode = scheduler.schedule(jobInfo);
         if (resultCode == JobScheduler.RESULT_SUCCESS) {
-            Log.d("ServiceTestRun", "Job Scheduled Successfully Ali...");
+            Log.d("ServiceTestRun", "Job Scheduled Successfully...");
 
         }
     }

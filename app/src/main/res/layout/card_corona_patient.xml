@@ -2,14 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark">
+    android:layout_height="wrap_content">
 
 
     <androidx.cardview.widget.CardView
+        android:elevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         app:cardCornerRadius="10dp">
 
 
@@ -27,16 +26,8 @@
                 android:src="@drawable/pk" />
 
             <TextView
-                android:id="@+id/coronaPatientCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewCountry"
-                android:layout_marginLeft="40dp"
-                android:text="PK"
-                android:textColor="#FFFFFF"
-                android:textSize="30dp" />
-
-            <TextView
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
                 android:id="@+id/coronaPatientDateAndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/coronaPatientDateAndTime"
                 android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/imageViewCountry"
                 android:text="Confirmed Today"
                 android:textColor="#FFFFFF"
@@ -73,6 +64,32 @@
                 android:text="100"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textViewCoronaPatientsConfirmedTotalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewCoronaPatientsConfirmedToday"
+                android:layout_marginLeft="7dp"
+                android:layout_toRightOf="@+id/imageViewCountry"
+                android:text="Total Confirmed"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/textViewCurrentConfirmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewCurrentDayPatients"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@+id/textViewCoronaPatientsConfirmedTotalTitle"
+                android:text="100"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
