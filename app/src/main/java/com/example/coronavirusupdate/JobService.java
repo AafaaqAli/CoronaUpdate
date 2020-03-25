@@ -42,7 +42,7 @@ public class JobService extends android.app.job.JobService {
         return false;
     }
 
-    private void getFusedLocation(JobParameters prams) {
+    private void getFusedLocation() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationProviderClient.getLocationAvailability().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -50,9 +50,13 @@ public class JobService extends android.app.job.JobService {
                     try {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        Log.d("ServiceTestRun", "Lat: " + latitude + "\n" + "lon: " + longitude);
-                        getWeather(location.getLatitude(), location.getLongitude());
-                        getCoronaVirusUpdate();
+                        if (location == null) {
+                            getFusedLocation();
+                        } else {
+                            Log.d("ServiceTestRun", "Lat: " + latitude + "\n" + "lon: " + longitude);
+                            getWeather(location.getLatitude(), location.getLongitude());
+                            getCoronaVirusUpdate();
+                        }
 
                     } catch (NullPointerException e) {
                         Log.d("ServiceTestRun", Objects.requireNonNull(e.getMessage()));
@@ -64,8 +68,8 @@ public class JobService extends android.app.job.JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        AndroidNetworking.initialize(getApplicationContext());
-        getFusedLocation(params);
+        AndroidNetworking.initialize(this);
+        getFusedLocation();
 
         return true;
     }
@@ -141,7 +145,9 @@ public class JobService extends android.app.job.JobService {
 
                     try {
                         String wwCases = response.getJSONObject("confirmed").get("latest").toString();
-                        Log.d("ServiceTestRun", "WW cases are: " + wwCases);
+                        String totalCases = response.getJSONArray("locations").toString();
+                        Log.d("ServiceTestRun", "WW cases are: " + wwCases + "\n" + totalCases);
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
