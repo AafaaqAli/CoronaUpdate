@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        startUpdate();
 
                 } else {
 
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         validateAndGPSAndNetworkSetting();
+
     }
 
     private class RequestPermissionsTask extends AsyncTask<Void, Void, Void> {

@@ -3,6 +3,7 @@ package com.example.coronavirusupdate;
 import android.app.job.JobParameters;
 import android.util.Log;
 
+import com.amitshekhar.DebugDB;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -25,6 +27,9 @@ public class JobService extends android.app.job.JobService {
     private static final String CORONA_VIRUS_URL = "https://coronavirus-tracker-api.herokuapp.com/all";
     double latitude, longitude;
     private String weatherApiURL = "api.openweathermap.org/data/2.5/forecast";
+    ArrayList<Weather> arrayListWeather;
+    ArrayList<Corona> arrayListCorona;
+
 
     public static String getDate(long milliSeconds) {
         // Create a DateFormatter object for displaying date in specified format.
@@ -68,6 +73,8 @@ public class JobService extends android.app.job.JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
+        arrayListWeather = new ArrayList<>();
+        arrayListCorona = new ArrayList<>();
         AndroidNetworking.initialize(this);
         getFusedLocation();
 
@@ -112,11 +119,29 @@ public class JobService extends android.app.job.JobService {
                             //descriptionCityTemperature
                             String descriptionCityTemperature = weatherSingleDayJsonObject.getJSONArray("weather").toString();
 
+                            arrayListWeather.add(new Weather(date, cityName, Double.parseDouble(cityTemperature), cityWeatherStat, descriptionCityTemperature));
+                            arrayListCorona.add(new Corona(String.valueOf(x), "1000", "1000"));
+
                             Log.d("ServiceTestRun", "\nDate: " + date
                                     + " Temperature of City: " + cityName + " is " + cityTemperature + " and weather is: " + descriptionCityTemperature
                             );
 
 
+                        }
+                        DebugDB.getAddressLog();
+                        WeatherRepository weatherRepository = new WeatherRepository(this);
+                        weatherRepository.updateWeather(arrayListWeather);
+
+
+                        CoronaRepository coronaRepository = new CoronaRepository(this);
+                        coronaRepository.updateCorona(arrayListCorona);
+
+
+                        Log.d("ServiceTetRun", "===============================================In Main=====================================================================");
+                        for (Weather weather : weatherRepository.getAllWeather()) {
+                            Log.d("ServiceTestRun", "\nDate: " + weather.getDate()
+                                    + " Temperature of City: " + weather.getCity() + " is " + weather.getTemperature() + " and weather is: " + weather.getWeatherCondition()
+                            );
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
