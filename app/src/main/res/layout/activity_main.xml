@@ -18,10 +18,9 @@
 
         <ImageView
             android:id="@+id/imageViewWeatherMainLayout"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/full_sun"/>
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:src="@drawable/full_sun" />
 
         <TextView
             android:id="@+id/textViewTemperatureMain"
@@ -32,7 +31,7 @@
             android:layout_toRightOf="@+id/imageViewWeatherMainLayout"
             android:text="70\u2103"
             android:textColor="#FFFFFF"
-            android:textSize="70dp" />
+            android:textSize="45dp" />
 
 
         <TextView
@@ -41,11 +40,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewTemperatureMain"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="-16dp"
+            android:layout_marginTop="-10dp"
             android:layout_toRightOf="@+id/imageViewWeatherMainLayout"
             android:text="Sunny"
             android:textColor="#FFFFFF"
-            android:textSize="35dp" />
+            android:textSize="25dp" />
 
 
     </RelativeLayout>
@@ -74,6 +73,7 @@
                 android:id="@+id/imageViewSearchByCountry"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/imageViewSortCoronaPatients"
                 android:clickable="true"
@@ -83,6 +83,7 @@
                 android:id="@+id/imageViewSortCoronaPatients"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:clickable="true"
                 android:src="@drawable/ic_sort" />
@@ -109,46 +110,27 @@
         android:id="@+id/textViewSevenDaysTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/scrollViewWeather"
+        android:layout_above="@+id/recyclerViewWeather"
         android:layout_margin="10dp"
-        android:text="Next Seven days"
+        android:text="Next Five days"
         android:textColor="#FFFFFF"
         android:textSize="20dp" />
 
-    <HorizontalScrollView
-        android:id="@+id/scrollViewWeather"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWeather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="20dp"
-        android:background="#8E24AA">
+        android:layout_marginBottom="20dp" />
 
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#8E24AA">
-
-            <include layout="@layout/card_weather" />
-
-            <include layout="@layout/card_weather" />
-
-            <include layout="@layout/card_weather" />
-
-            <include layout="@layout/card_weather" />
-
-            <include layout="@layout/card_weather" />
-
-            <include layout="@layout/card_weather" />
-
-            <include layout="@layout/card_weather" />
-
-
-        </GridLayout>
-
-
-    </HorizontalScrollView>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
 
 
 </RelativeLayout>

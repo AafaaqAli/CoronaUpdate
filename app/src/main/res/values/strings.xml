@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">CoronaVirusUpdate</string>
     <string name="appwidget_text">EXAMPLE</string>
+    <string name="celsius">"\u2103"</string>
+    <string name="fahrenheit">"\u2109"</string>
     <string name="add_widget">Add widget</string>
+    <string name="string_setting"> We need your permission to use Internet and GPS </string>
 </resources>

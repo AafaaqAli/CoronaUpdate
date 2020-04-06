@@ -1,6 +1,9 @@
 package com.example.coronavirusupdate;
 
 import android.app.job.JobParameters;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Handler;
 import android.util.Log;
 
 import com.amitshekhar.DebugDB;
@@ -16,30 +19,35 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class JobService extends android.app.job.JobService {
+    private DataRepository dataRepository;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final String WEATHER_APP_ID = "&appid=38135a4ea014b16d241519186ab11d71";
-    private static final String CORONA_VIRUS_URL = "https://coronavirus-tracker-api.herokuapp.com/all";
+    private static final String CORONA_VIRUS_URL = "https://coronavirus-tracker-api.herokuapp.com/v2/locations";
     double latitude, longitude;
     private String weatherApiURL = "api.openweathermap.org/data/2.5/forecast";
-    ArrayList<Weather> arrayListWeather;
-    ArrayList<Corona> arrayListCorona;
+    ArrayList<Data> dataArrayList;
+    ArrayList<Weather> weatherArrayList;
+    ArrayList<WeatherDetails> weatherDetailsArrayList;
+    int retryCounter = 0;
+    int retryCounterWeather = 0;
 
 
     public static String getDate(long milliSeconds) {
-        // Create a DateFormatter object for displaying date in specified format.
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/y yyy");
+        // Creating date format
+        DateFormat simple = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS Z");
+        Date result = new Date(milliSeconds);
 
-        // Create a calendar object that will convert the date and time value in milliseconds to date.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(milliSeconds);
-        return formatter.format(calendar.getTime());
-
+        return simple.format(result);
     }
 
     @Override
@@ -55,33 +63,34 @@ public class JobService extends android.app.job.JobService {
                     try {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
-                        if (location == null) {
-                            getFusedLocation();
-                        } else {
-                            Log.d("ServiceTestRun", "Lat: " + latitude + "\n" + "lon: " + longitude);
-                            getWeather(location.getLatitude(), location.getLongitude());
-                            getCoronaVirusUpdate();
-                        }
+
+                        //should not be null
+                        getWeather(location.getLatitude(), location.getLongitude());
+
 
                     } catch (NullPointerException e) {
-                        Log.d("ServiceTestRun", Objects.requireNonNull(e.getMessage()));
+                        getFusedLocation();
+
                     }
                 });
             }
         });
     }
 
-    @Override
-    public boolean onStartJob(JobParameters params) {
-        arrayListWeather = new ArrayList<>();
-        arrayListCorona = new ArrayList<>();
-        AndroidNetworking.initialize(this);
-        getFusedLocation();
-
-        return true;
+    private String getCityByLocation(double lat, double lon) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        String country = "Unable to find The Country";
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            country = addresses.get(0).getAdminArea();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return country;
     }
 
     private void getWeather(double lat, double lon) {
+        Log.d("locationTestService", "lat: " + lat + " lon: " + lon);
         String weatherAPIUrl = "https://" + weatherApiURL + "?lat=" + lat + "&lon=" + lon + WEATHER_APP_ID;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -92,7 +101,6 @@ public class JobService extends android.app.job.JobService {
 
                         //40 days json Array
                         JSONArray weatherJsonArray = response.getJSONArray("list");
-
 
                         for (int x = 0; x <= 6; x++) {
                             //Weather Each Day
@@ -107,42 +115,39 @@ public class JobService extends android.app.job.JobService {
                             //get Weather stat of current city
                             String cityWeatherStat = weatherSingleDayJsonObject.getJSONArray("weather").toString();
 
-                            //to get Current Weather of city
-                            JSONObject weatherJsonArrayCurrentCityStats = response.getJSONObject("city");
-
-                            //get City Name
-                            String cityName = weatherJsonArrayCurrentCityStats.getString("name");
+                            //humidity
+                            String humidity = weatherSingleDayJsonObject.getJSONObject("main").getString("humidity");
 
                             //city temperature
                             String cityTemperature = weatherMainJsonObject.getString("temp");
 
-                            //descriptionCityTemperature
-                            String descriptionCityTemperature = weatherSingleDayJsonObject.getJSONArray("weather").toString();
 
-                            arrayListWeather.add(new Weather(date, cityName, Double.parseDouble(cityTemperature), cityWeatherStat, descriptionCityTemperature));
-                            arrayListCorona.add(new Corona(String.valueOf(x), "1000", "1000"));
+                            //windSpeed
+                            String windSpeed = weatherSingleDayJsonObject.getJSONObject("wind").getString("speed");
 
-                            Log.d("ServiceTestRun", "\nDate: " + date
-                                    + " Temperature of City: " + cityName + " is " + cityTemperature + " and weather is: " + descriptionCityTemperature
-                            );
+                            //description
+                            JSONArray jsonArrayWeather = weatherSingleDayJsonObject.getJSONArray("weather");
+                            for (int i = 0; i < jsonArrayWeather.length(); i++) {
+                                weatherDetailsArrayList.add(new WeatherDetails(
+                                        jsonArrayWeather.getJSONObject(i).getString("id"),
+                                        jsonArrayWeather.getJSONObject(i).getString("main"),
+                                        jsonArrayWeather.getJSONObject(i).getString("description"),
+                                        jsonArrayWeather.getJSONObject(i).getString("icon")
+                                ));
+                            }
 
+                            weatherArrayList.add(new Weather(
+                                    Integer.parseInt(weatherDetailsArrayList.get(x).getId()),
+                                    cityTemperature,
+                                    windSpeed,
+                                    weatherDetailsArrayList.get(x).getDescription(),
+                                    weatherDetailsArrayList.get(x).getMain(),
+                                    humidity,
+                                    weatherDetailsArrayList.get(x).getIcon()
+                            ));
 
                         }
-                        DebugDB.getAddressLog();
-                        WeatherRepository weatherRepository = new WeatherRepository(this);
-                        weatherRepository.updateWeather(arrayListWeather);
 
-
-                        CoronaRepository coronaRepository = new CoronaRepository(this);
-                        coronaRepository.updateCorona(arrayListCorona);
-
-
-                        Log.d("ServiceTetRun", "===============================================In Main=====================================================================");
-                        for (Weather weather : weatherRepository.getAllWeather()) {
-                            Log.d("ServiceTestRun", "\nDate: " + weather.getDate()
-                                    + " Temperature of City: " + weather.getCity() + " is " + weather.getTemperature() + " and weather is: " + weather.getWeatherCondition()
-                            );
-                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -154,10 +159,6 @@ public class JobService extends android.app.job.JobService {
 
         // Add JsonObjectRequest to the RequestQueue
         requestQueue.add(jsonObjectRequest);
-    }
-
-    private void updateWidget() {
-
     }
 
     private void getCoronaVirusUpdate() {
@@ -167,28 +168,96 @@ public class JobService extends android.app.job.JobService {
                 CORONA_VIRUS_URL,
                 null,
                 response -> {
-
                     try {
-                        String wwCases = response.getJSONObject("confirmed").get("latest").toString();
-                        String totalCases = response.getJSONArray("locations").toString();
-                        Log.d("ServiceTestRun", "WW cases are: " + wwCases + "\n" + totalCases);
+                        JSONArray jsonArray = response.getJSONArray("locations");
+                        String confirmedWW = response.getJSONObject("latest").getString("confirmed");
+                        String deathsWW = response.getJSONObject("latest").getString("deaths");
+                        String recoveredWW = response.getJSONObject("latest").getString("recovered");
 
+                        for (int x = 0; x <= jsonArray.length(); x++) {
+                            if (weatherArrayList.size() != 0 && x < 5) {
+                                dataArrayList.add(new Data(
+                                        weatherArrayList.get(x).getWeatherDetail(),
+                                        weatherArrayList.get(x).getTemperature(),
+                                        weatherArrayList.get(x).getHumidity(),
+                                        weatherArrayList.get(x).getIconResource(),
+                                        weatherArrayList.get(x).getWindSpeed(),
+                                        jsonArray.getJSONObject(x).get("country").toString(),
+                                        jsonArray.getJSONObject(x).getJSONObject("latest").get("confirmed").toString(),
+                                        jsonArray.getJSONObject(x).getJSONObject("latest").get("deaths").toString(),
+                                        jsonArray.getJSONObject(x).getJSONObject("latest").get("recovered").toString(),
+                                        deathsWW,
+                                        confirmedWW,
+                                        recoveredWW
+                                ));
+                            } else {
+                                dataArrayList.add(new Data(
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        jsonArray.getJSONObject(x).get("country").toString(),
+                                        jsonArray.getJSONObject(x).getJSONObject("latest").get("confirmed").toString(),
+                                        jsonArray.getJSONObject(x).getJSONObject("latest").get("deaths").toString(),
+                                        jsonArray.getJSONObject(x).getJSONObject("latest").get("recovered").toString(),
+                                        deathsWW,
+                                        confirmedWW,
+                                        recoveredWW
+                                ));
+                            }
 
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("ServiceTestRun", e.getMessage());
                     }
                 },
                 error -> {
-
+                    Log.d("ServiceTestRun", "Error: " + error.toString());
                 }
         );
+
 
         // Add JsonObjectRequest to the RequestQueue
         requestQueue.add(jsonObjectRequest);
 
     }
 
-    private void tailorWeatherData() {
 
+    private void performCoronaDatabaseOperations() {
+        if (dataArrayList.isEmpty()) {
+            if (retryCounter == 3) {
+                Log.d("ServiceTestRun", "RetryCounter: " + retryCounter);
+                return;
+            } else {
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    performCoronaDatabaseOperations();
+                    retryCounter++;
+                }, 2000);
+            }
+
+        } else {
+            retryCounter = 0;
+            dataRepository = new DataRepository(getApplication());
+            dataRepository.update(dataArrayList);
+        }
+    }
+
+    @Override
+    public boolean onStartJob(JobParameters params) {
+
+        dataArrayList = new ArrayList<>();
+        weatherArrayList = new ArrayList<>();
+        weatherDetailsArrayList = new ArrayList<>();
+
+        DebugDB.getAddressLog();
+        AndroidNetworking.initialize(this);
+        getFusedLocation();
+
+        getCoronaVirusUpdate();
+        performCoronaDatabaseOperations();
+        return true;
     }
 }
