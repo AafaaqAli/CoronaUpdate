@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relativeLayoutWidget"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
     android:padding="@dimen/widget_margin">
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -20,15 +20,14 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/clouds_foggy" />
 
             <RelativeLayout
-                android:id="@+id/relativeLayoutTextViewWeather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="7dp"
                 android:layout_toEndOf="@+id/imageViewCardWeather"
                 android:layout_toRightOf="@+id/imageViewCardWeather">
 
@@ -62,19 +61,20 @@
             android:layout_marginTop="5dp">
 
             <TextView
-                android:id="@+id/textViewWorldWideTitle"
+                android:id="@+id/textViewCurrentCountryTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current Location:"
+                android:text="Pakistan:"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/textViewCurrentCountryConfirmed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/textViewWorldWideTitle"
+                android:layout_toRightOf="@+id/textViewCurrentCountryTitle"
                 android:text="300"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp" />
@@ -88,7 +88,7 @@
             android:layout_marginLeft="20dp">
 
             <TextView
-                android:id="@+id/textViewCurrentLocationCasesTitle"
+                android:id="@+id/textViewWorldWideTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="World Wide:"
@@ -97,10 +97,11 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/textViewWorldWidePatients"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/textViewCurrentLocationCasesTitle"
+                android:layout_toRightOf="@+id/textViewWorldWideTitle"
                 android:text="20"
                 android:textColor="#FFFFFF"
                 android:textSize="18dp" />

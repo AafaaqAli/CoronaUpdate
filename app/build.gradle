@@ -5,20 +5,21 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.example.coronavirusupdate"
+        applicationId "com.github.coronavirusupdate"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,15 +40,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.1.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
-    implementation 'com.google.android.gms:play-services:12.0.1'
+
+    //noinspection UseOfBundledGooglePlayServices
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.amitshekhar.android:android-networking:1.0.2'
-    implementation 'com.amitshekhar.android:jackson-android-networking:1.0.2'
-    implementation 'com.amitshekhar.android:android-networking:1.0.2'
-
-    implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'com.android.volley:volley:1.1.1'
 
@@ -59,14 +57,15 @@ dependencies {
 
     implementation 'com.github.AppIntro:AppIntro:5.1.0'
 
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
 
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+
 
 }

@@ -8,17 +8,6 @@
     <color name="colorAccent">#03DAC5</color>
 
 
-    <color name="colorSunshine">#F4D23B</color>
-    <color name="colorBrightYellow">#FFAB00</color>
-    <color name="colorBrightRed">#D50000</color>
-    <color name="colorDayCloudy">#C4E8E5</color>
-    <color name="colorNightCloudy">#72918E</color>
-    <color name="colorCloudy">#BDC1C1</color>
-    <color name="colorRainy">#DCE3E2</color>
-    <color name="colorHeavyShawr">#E6FCFF</color>
-
-
-
     <color name="snackBarColor">#AA00FF</color>
 
 </resources>

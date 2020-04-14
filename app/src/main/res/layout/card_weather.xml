@@ -13,7 +13,7 @@
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:layout_marginRight="5dp"
-        android:elevation="10dp"
+        android:elevation="5dp"
         app:cardBackgroundColor="#DDFDC43E"
         app:cardCornerRadius="10dp">
 
@@ -34,7 +34,6 @@
                     android:src="@drawable/cloud_heavy_wind" />
 
                 <RelativeLayout
-                    android:id="@+id/relativeLayoutTextViewWeather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
