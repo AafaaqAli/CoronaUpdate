@@ -38,7 +38,7 @@ Welcome Screen (One)           |   Welcome Screen (Two)           |   Welcome Sc
   * [Open Weather](https://openweathermap.org/) API is on free subscription which has 1,000 calls/day and 60 calls/min so this could also happen that app might not show any data for a while if API call limit exceeds.
   
 ## Installation
-* You can clone the repo, compile and run it by your self if not
+* You can clone the repo (Before start using the code please concider changing the api key of OpenWeather with your own), compile and run it by your self if not
 [[ Dropbox ](https://www.dropbox.com/s/ximl72r9hebcecc/corona_update.apk?dl=0)]
 [[ Mega ](https://mega.nz/file/mzxViILY#ftZZbKRhN4HGwDP2DjMWJxlupOg6243h-D7BvmXmD20)] is always here.
   
