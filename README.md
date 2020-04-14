@@ -4,8 +4,8 @@ Welcome Screen (One)           |   Welcome Screen (Two)           |   Welcome Sc
 :-----------------------------:|:--------------------------------:|:---------------------------------:
 ![](Pictures/fragment_one.jpg) |  ![](Pictures/fragment_two.jpg)  |  ![](Pictures/fragment_three.jpg) 
 
-| Main Screen(World Wide)   |  Main Screen (Current Location)
-|:-------------------------:|:---------------------------
+| Main Screen(World Wide)   |    Main Screen (Current Location)
+|:-------------------------:|:-------------------------------------:
 ![](Pictures/SVsExNL6.jpeg) | ![](Pictures/Eld5x6N9.jpeg)
 # Permissions
 
