@@ -35,14 +35,13 @@ public class JobService extends android.app.job.JobService {
     private static final String WEATHER_APP_ID = "&appid=38135a4ea014b16d241519186ab11d71";
     private static final String CORONA_VIRUS_URL = "https://coronavirus-tracker-api.herokuapp.com/v2/locations";
 
-    private long UPDATE_INTERVAL = 60 * 60 * 1000;  /* 1 hour */
-    private long FASTEST_INTERVAL = 60 * 60 * 1000; /* 1 hour */
+    private long UPDATE_INTERVAL = 4 * 60 * 60 * 1000;  /* 1 hour */
+    private long FASTEST_INTERVAL = 4 * 60 * 60 * 1000; /* 1 hour */
 
     private LocationRequest mLocationRequest;
 
 
     private HelperClass helperClass;
-
     private double latitude, longitude;
     private int retryCounter = 0;
 
@@ -208,6 +207,7 @@ public class JobService extends android.app.job.JobService {
         // Add JsonObjectRequest to the RequestQueue
         requestQueue.add(jsonObjectRequest);
 
+
     }
 
 
@@ -285,6 +285,5 @@ public class JobService extends android.app.job.JobService {
 
     public void onLocationChanged(Location location) {
         getWeather(location.getLatitude(), location.getLongitude());
-
     }
 }

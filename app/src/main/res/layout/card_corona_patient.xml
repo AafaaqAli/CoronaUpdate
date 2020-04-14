@@ -2,16 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="10dp">
 
 
     <androidx.cardview.widget.CardView
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:elevation="5dp"
+        android:padding="10dp"
         app:cardCornerRadius="10dp">
 
 
@@ -22,10 +25,10 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/textViewNameCountry"
-                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="top"
                 android:text="Pakistan"
                 android:textAlignment="center"
@@ -43,70 +46,75 @@
 
                 <ImageView
                     android:id="@+id/imageViewCountry"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
                     android:layout_margin="5dp"
                     android:src="@drawable/pk" />
 
-                <TextView
-                    android:id="@+id/coronaPatientDateAndTime"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_toRightOf="@+id/imageViewCountry"
-                    android:text="Tuesday March 17"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@+id/imageViewCountry">
 
-                <TextView
-                    android:id="@+id/textViewCoronaPatientsConfirmedTotalTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/coronaPatientDateAndTime"
-                    android:layout_marginLeft="7dp"
-                    android:layout_toRightOf="@+id/imageViewCountry"
-                    android:text="Confirmed"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/coronaPatientDateAndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:text="Tuesday March 17"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewCurrentConfirmed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/coronaPatientDateAndTime"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_toRightOf="@+id/textViewCoronaPatientsConfirmedTotalTitle"
-                    android:text="100"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textViewCoronaPatientsConfirmedTotalTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/coronaPatientDateAndTime"
+                        android:layout_marginLeft="7dp"
+                        android:text="Confirmed"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15dp" />
 
-                <TextView
-                    android:id="@+id/textViewCoronaPatientsDeathsTotalTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewCurrentConfirmed"
-                    android:layout_marginLeft="7dp"
-                    android:layout_toRightOf="@+id/imageViewCountry"
-                    android:text="Deaths"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/textViewCurrentConfirmed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/coronaPatientDateAndTime"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toRightOf="@+id/textViewCoronaPatientsConfirmedTotalTitle"
+                        android:text="100"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textViewCurrentDeaths"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textViewCurrentConfirmed"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_toRightOf="@+id/textViewCoronaPatientsDeathsTotalTitle"
-                    android:text="100"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textViewCoronaPatientsDeathsTotalTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewCurrentConfirmed"
+                        android:layout_marginLeft="7dp"
+                        android:text="Deaths"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/textViewCurrentDeaths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewCurrentConfirmed"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toRightOf="@+id/textViewCoronaPatientsDeathsTotalTitle"
+                        android:text="100"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
             </RelativeLayout>
 
 

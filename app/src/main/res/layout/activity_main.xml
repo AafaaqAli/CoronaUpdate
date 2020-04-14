@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imageViewWeatherMainLayout"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/full_sun" />
 
         <TextView
@@ -86,7 +86,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:clickable="true"
-                android:src="@drawable/ic_sort" />
+                android:src="@drawable/ic_location" />
 
         </RelativeLayout>
 
@@ -100,9 +100,7 @@
         android:layout_above="@+id/textViewSevenDaysTitle"
         android:layout_below="@+id/linearLayoutSort_Search"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
         android:fitsSystemWindows="true">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -112,20 +110,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/recyclerViewWeather"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
         android:text="Next Five days"
         android:textColor="#FFFFFF"
         android:textSize="20dp" />
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_alignParentBottom="true"
         android:id="@+id/recyclerViewWeather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_margin="5dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"

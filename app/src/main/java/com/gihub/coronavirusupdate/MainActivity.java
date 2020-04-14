@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+
     private int retryCounter = 0;
     private boolean skipMethod = false;
 
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 isSortedInList = false;
                 if (!coronaArrayListFull.isEmpty()) {
                     setCoronaData(coronaArrayListFull);
+                    imageViewSort.setImageResource(R.drawable.ic_location);
                 } else {
                     getLiveData();
                     imageViewSort.setVisibility(View.GONE);
@@ -189,12 +191,21 @@ public class MainActivity extends AppCompatActivity {
                     setCoronaData(null);
                     for (Corona corona : coronaArrayListFull) {
                         if (corona.getCountry().toLowerCase().equals(country.toLowerCase())) {
-                            coronaArrayList.add(corona);
+                            if (coronaArrayList.isEmpty()) {
+                                coronaArrayList.add(corona);
+                            } else {
+                                for (Corona c : coronaArrayList) {
+                                    if (c.getDeaths() != corona.getDeaths() && c.getPatients() != corona.getPatients()) {
+                                        coronaArrayList.add(corona);
+                                    }
+                                }
+                            }
                         }
                     }
 
                 }
                 setCoronaData(coronaArrayList);
+                imageViewSort.setImageResource(R.drawable.ic_my_location);
             }
         });
     }
@@ -273,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 JobInfo jobInfo = new JobInfo.Builder(JOB_ID, componentName)
                         .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                         .setPersisted(true)
-                        .setPeriodic(2 * 60 * 60 * 1000)
+                        .setPeriodic(12 * 60 * 60 * 1000)
                         .build();
 
                 JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
