@@ -33,6 +33,10 @@ Welcome Screen (One)           |   Welcome Screen (Two)           |   Welcome Sc
   so it is more likely to happen that the project might get deleted or may no longer managed by community, So in future this application 
   may not work without this API ( but I will update (if any available) the API ASAP if something happens ). 
   * if every things goes fine app will update after every 12 hours.
+  * [Open Weather](https://openweathermap.org/) API is on free subscription which has 1,000 calls/day and 60 calls/min so this could also happen that app might not show any data for a while if API call limit exceeds.
+  
+## Installation
+* You can clone the repo and compile and run it but your self if not [download link](https://www.dropbox.com/s/5t63p8yrcrghgn1/CoronaUpdate.apk?dl=0) is always here.
   
 ## About This Application
 Idea of this application was originnaly came from a redit user (who created a live Corona update display using an raspberry pi
