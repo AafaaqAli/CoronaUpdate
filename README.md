@@ -39,8 +39,8 @@ Welcome Screen (One)           |   Welcome Screen (Two)           |   Welcome Sc
   
 ## Installation
 * You can clone the repo (Before start using the code please concider changing the api key of OpenWeather with your own), compile and run it by your self if not
-[[ Dropbox ](https://www.dropbox.com/s/ximl72r9hebcecc/corona_update.apk?dl=0)]
-[[ Mega ](https://mega.nz/file/mzxViILY#ftZZbKRhN4HGwDP2DjMWJxlupOg6243h-D7BvmXmD20)] is always here.
+[[ Dropbox ](https://www.dropbox.com/s/2qmyxqlxt7aacqh/corona_update.apk?dl=0)]
+[[ Mega ](https://mega.nz/file/Gyg1AYJR#XVlR3lbWBT205rjRFxQfoquRS677hFy4m4Qgiy0RqNk)] is always here.
   
 ## About This Application
 Idea of this application was originnaly came from a redit user (who created a live Corona update display using an raspberry pi
