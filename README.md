@@ -1,10 +1,12 @@
 # Corona Update ( Andorid Based Application )
 
-Welcome Screen (One)           |   Welcome Screen (Two)           |   Welcome Screen (Three)          |   Main Screen 
-:-----------------------------:|:--------------------------------:|:---------------------------------:|:-------------------------:
-![](Pictures/fragment_one.jpg) |  ![](Pictures/fragment_two.jpg)  |  ![](Pictures/fragment_three.jpg) | ![](Pictures/main_four.jpg)
+Welcome Screen (One)           |   Welcome Screen (Two)           |   Welcome Screen (Three)          
+:-----------------------------:|:--------------------------------:|:---------------------------------:
+![](Pictures/fragment_one.jpg) |  ![](Pictures/fragment_two.jpg)  |  ![](Pictures/fragment_three.jpg) 
 
-
+| Main Screen(World Wide)   |    Main Screen (Current Location)
+|:-------------------------:|:-------------------------------------:
+![](Pictures/SVsExNL6.jpeg) | ![](Pictures/Eld5x6N9.jpeg)
 # Permissions
 
 * [Location Permission](https://developer.android.com/reference/android/Manifest.permission)
@@ -36,7 +38,9 @@ Welcome Screen (One)           |   Welcome Screen (Two)           |   Welcome Sc
   * [Open Weather](https://openweathermap.org/) API is on free subscription which has 1,000 calls/day and 60 calls/min so this could also happen that app might not show any data for a while if API call limit exceeds.
   
 ## Installation
-* You can clone the repo, compile and run it by your self if not [download link](https://www.dropbox.com/s/5t63p8yrcrghgn1/CoronaUpdate.apk?dl=0) is always here.
+* You can clone the repo (Before start using the code please concider changing the api key of OpenWeather with your own), compile and run it by your self if not
+[[ Dropbox ](https://www.dropbox.com/s/ximl72r9hebcecc/corona_update.apk?dl=0)]
+[[ Mega ](https://mega.nz/file/mzxViILY#ftZZbKRhN4HGwDP2DjMWJxlupOg6243h-D7BvmXmD20)] is always here.
   
 ## About This Application
 Idea of this application was originnaly came from a redit user (who created a live Corona update display using an raspberry pi
