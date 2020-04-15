@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if (helperClass.isNetworkWorking(this)) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 dataRepository.getAllLiveData().observe(this, data -> {
+                    imageViewSort.setImageResource(R.drawable.ic_location);
                     int size = data.size() != 0 && data.size() < 5 ? data.size() : 5;
                     // Convert Database Model into RecyclerView Model
                     ArrayList<Weather> weatherArrayList = new ArrayList<>();
@@ -223,12 +224,15 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("No Network Available, Want me to open Network setting?")
                 .setCancelable(false)
-                .setPositiveButton("Setting", (dialog, id) -> {
+                .setPositiveButton("Wifi", (dialog, id) -> {
                     dialog.dismiss();
                     startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
 
                 })
-                .setNegativeButton("Dismiss", (dialog, id) -> dialog.dismiss())
+                .setNegativeButton("Mobile Data", (dialog, id) -> {
+                    dialog.dismiss();
+                    startActivity(new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS));
+                })
                 .setCancelable(false);
 
 
